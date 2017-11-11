@@ -249,6 +249,8 @@ module Web
         frame-src 'self';
         media-src 'self'
       }
+      security.content_security_policy "default-src none; script-src 'self' https://code.jquery.com;"
+      security.content_security_policy "font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com;"
 
       ##
       # FRAMEWORKS
