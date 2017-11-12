@@ -251,6 +251,9 @@ module Web
       }
       security.content_security_policy "default-src none; script-src 'self' https://code.jquery.com;"
       security.content_security_policy "font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com;"
+      security.content_security_policy "font-src 'self' https://skyway.io/dist/0.3/peer.js;"
+      security.content_security_policy "font-src 'self' https://skyway.io/dist/multiparty.min.js;"
+      security.content_security_policy "font-src 'self' http://cdn.peerjs.com/0.3/peer.min.js;"
 
       ##
       # FRAMEWORKS
