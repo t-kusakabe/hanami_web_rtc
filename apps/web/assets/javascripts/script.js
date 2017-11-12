@@ -1,15 +1,33 @@
-'use strict';
-console.log(211)
+console.log('start webRTC!')
 
-let localStream = null;
+navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
-navigator.mediaDevices.getUserMedia({video: true, audio: true})
-    .then(function (stream) {
-        // Success
-        $('#my-video').get(0).srcObject = stream;
-        localStream = stream;
-    }).catch(function (error) {
-        // Error
-        console.error('mediaDevice.getUserMedia() error:', error);
-        return;
-    });
+var peer = new Peer({key: 'apikey'});
+ 
+peer.on('open', function(){
+    $('#my-id').text(peer.id);
+});
+
+
+var myStream;
+$(function(){
+  navigator.getUserMedia({audio: true, video: true}, function(stream){
+    myStream = stream;
+    $('#video').prop('src', URL.createObjectURL(stream));
+  }, function(){});
+});
+
+function callTo(peerId){
+  var call = peer.call(peerId, myStream)
+
+  call.on('stream', function(othersStream){
+    $('#others-video').prop('src', URL.createObjectURL(othersStream))
+  })
+}
+
+peer.on('call', function(call){
+  call.answer(myStream);
+  call.on('stream', function(othersStream){
+    $('#others-video').prop('src', URL.createObjectURL(othersStream));
+  });
+});
