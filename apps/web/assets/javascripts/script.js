@@ -5,6 +5,7 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia 
 var peer = new Peer({key: 'apikey'});
  
 peer.on('open', function(){
+    console.log('connect')
     $('#my-id').text(peer.id);
 });
 
